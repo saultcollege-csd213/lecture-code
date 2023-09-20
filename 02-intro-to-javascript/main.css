@@ -1,0 +1,18 @@
+body {
+    --my-title-color: #ff0000;
+}
+
+h1 {
+    color: var(--my-title-color);
+}
+
+
+main div {
+    color: red;
+}
+main > div {
+    color: blue;
+}
+main + div {
+    color: green;
+}

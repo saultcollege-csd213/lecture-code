@@ -1,16 +1,43 @@
 function expensiveCalculation(k) {
     // get timestamp
-    const start = Date.now();
-    console.log("Starting expensive task...");
+    //const start = Date.now();
+    //console.log("Starting expensive task...");
     let i = 0;
     while ( i < k*100000000 ) {
         i++;
     }
-    const end = Date.now();
-    console.log("...done in " + (end - start) + "ms");
+    //const end = Date.now();
+    //console.log("...done in " + (end - start) + "ms");
 
     return i;
 }
+
+// const cache = new Map();
+
+// const start = Date.now();
+// for ( let i = 0; i < 25; i++ ) {    
+//     const r = Math.floor(Math.random() * 10);
+//     let result;
+//     if ( cache.has(r) ) {
+//         result = cache.get(r);
+//     } else {
+//         result = expensiveCalculation(r);
+//         cache.set(r, result);
+//     }
+//     console.log(result);
+// }
+// const end = Date.now();
+// console.log("...done in " + (end - start) + "ms");
+
+
+
+
+
+
+
+
+
+
 
 function createCache() {
     const cache = new Map();
@@ -37,12 +64,21 @@ const cached = createCache();
 // Make the cached version of the expensiveCalculation function
 const cachedExpensiveCalculation = cached(expensiveCalculation);
 
-// These calls will all take some time:
-console.log(expensiveCalculation(12));
-console.log(expensiveCalculation(12));
-console.log(expensiveCalculation(12));
+// // These calls will all take some time:
+// console.log(expensiveCalculation(12));
+// console.log(expensiveCalculation(12));
+// console.log(expensiveCalculation(12));
 
-// Only the first of these calls will take some time:
-console.log(cachedExpensiveCalculation(12));
-console.log(cachedExpensiveCalculation(12));
-console.log(cachedExpensiveCalculation(12));
+// // Only the first of these calls will take some time:
+// console.log(cachedExpensiveCalculation(12));
+// console.log(cachedExpensiveCalculation(12));
+// console.log(cachedExpensiveCalculation(12));
+
+// const start = Date.now();
+// for ( let i = 0; i < 25; i++ ) {    
+//     const r = Math.floor(Math.random() * 10);
+//     const result = expensiveCalculation(r);
+//     console.log(result);
+// }
+//     const end = Date.now();
+// console.log("...done in " + (end - start) + "ms");

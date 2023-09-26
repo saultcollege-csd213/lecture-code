@@ -5,8 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="main.css">
-    <script src="main.js"></script>
+    <!-- <script src="main.js"></script> -->
     <script src="functions-returning-functions.js" type="module"></script>
+    <!-- <script src="non-modules/script1.js"></script>
+    <script src="non-modules/script2.js"></script>-->
+    <script type="module">
+        import { pi, square, hypotenuse as hyp } from './module.js';
+
+        console.log(pi);
+        console.log(square(pi));
+        console.log(hyp(3, 4));
+    </script>
 </head>
 <body>
 
@@ -35,5 +44,11 @@
     <footer>
 
     </footer>
+
+    <!-- <script type="module">
+        import { pi } from './module.js';
+
+        console.log(pi);
+    </script> -->
 </body>
 </html>

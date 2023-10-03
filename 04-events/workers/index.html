@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id='noWorker'>Without a worker</button>
+    <button id='useWorker'>With a worker</button>
+    <select>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    </select>
+
+    <script type="module">
+
+        import { doIt } from './expensive.js';
+        import { timed } from './util.js';
+
+        // Make a timed version of doIt
+        const doItTimed = timed(doIt);
+
+        const noWorker = document.getElementById('noWorker');
+        const useWorker = document.getElementById('useWorker');
+
+        // Without a worker, the UI freezes while doIt is running
+        noWorker.onclick = function() {
+            console.log(doItTimed(99));
+        }
+
+        // With a worker, the UI doesn't freeze while doIt is running
+        useWorker.onclick = function() {
+            // Create a worker (here, we load it as a module)
+            const worker = new Worker('worker.js', { type: 'module' });
+            // Send a message to the worker with a value
+            worker.postMessage(99);
+            // Listen for a message from the worker
+            worker.onmessage = event => {
+                console.log('Message from worker:');
+                // The event object has a data property that contains
+                // the value sent by the worker
+                console.log(event.data);
+            }
+        }
+    </script>
+</body>
+</html>

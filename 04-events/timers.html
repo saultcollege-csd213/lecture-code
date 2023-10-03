@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="timer">Set timer</button>
+    <button id="clear-timer">Clear timer</button>
+
+    <button id="interval">Set interval</button>
+    <button id="clear-interval">Clear interval</button>
+    <script>
+
+        let timerid = null;
+        let intervalid = null;
+        document.getElementById('timer').onclick = function() {
+            timerid = setTimeout(() => console.log('Done timeout!'), 5000);
+            console.log(`Timer ${timerid} has been set`);
+        }
+
+        document.getElementById('clear-timer').onclick = function() {
+            console.log(`Timer ${timerid} has been cleared`);
+            clearTimeout(timerid);
+        }
+
+        document.getElementById('interval').onclick = function() {
+            intervalid = setInterval(() => console.log(`Interval ${intervalid} fired!`), 1000);
+            console.log(`Interval ${intervalid} has been set`);
+        }
+
+        document.getElementById('clear-interval').onclick = function() {
+            console.log(`Interval ${intervalid} has been cleared`);
+            clearInterval(intervalid);
+        }
+
+        document.addEventListener('pointermove', event => {
+            clearTimeout(timerid);
+            timerid = setTimeout(() => console.log('Doing busywork'), 200);
+        });
+    </script>
+    
+</body>
+</html>

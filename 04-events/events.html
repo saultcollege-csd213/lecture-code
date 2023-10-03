@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #reading-progress {
+            position: fixed; 
+            top:0; 
+            left: 0; 
+            right: 0;
+            
+            height: 5px; 
+            background-color: rgba(0, 255, 0, 1);
+        }
+    </style>
+</head>
+<body style="height: 200vh">
+    <div id="reading-progress"></div>
+    <div>window: <span id="window-clicks">0</span></div>
+    <div>document: <span id="document-clicks">0</span></div>
+    <div>body: <span id="body-clicks">0</span></div>
+    <div id="a" style="background: pink">
+        <div>div: <span id="div-clicks">0</span></div>
+        <button id="b">button: <span id="button-clicks">0</span></button>
+    </div>
+
+    <a href="http://www.saultcollege.ca">You can't click me!</a>
+
+    <table>
+        <tr><td>Pointer position:</td><td id="pointer-position"></td></tr>
+        <tr><td>Pointer type:</td><td id="pointer-type"></td></tr>
+        <tr><td>Pointer button:</td><td id="pointer-button"></td></tr>
+        <tr><td>Special keys:</td><td id="special-keys"></td></tr>
+    </table>
+
+
+    <script type="module">
+
+        const ptrPos = document.getElementById('pointer-position');
+        const ptrType = document.getElementById('pointer-type');
+        const ptrButton = document.getElementById('pointer-button');
+        const specialKeys = document.getElementById('special-keys');
+
+        document.addEventListener('pointermove', function(event) {
+            ptrPos.textContent = event.clientX + ', ' + event.clientY;
+            ptrType.textContent = event.pointerType;
+            ptrButton.textContent = event.buttons;
+            const keys = [];
+            if (event.altKey) keys.push('alt');
+            if (event.ctrlKey) keys.push('ctrl');
+            if (event.metaKey) keys.push('meta');
+            if (event.shiftKey) keys.push('shift');
+            specialKeys.textContent = keys.join(', ');
+        })
+
+        function handle(event) {
+            console.log(event.pointerType)
+        }
+        document.getElementById('window-clicks').addEventListener('click', handle)
+
+        // function makeHandlerFor(id) {
+        //     let clicks = 0;
+        //     return () => {
+        //         clicks += 1;
+        //         document.getElementById(id).textContent = clicks;
+        //     }
+        // }
+
+        let windowClicks = 0;
+        let documentClicks = 0;
+        let bodyClicks = 0;
+        let divClicks = 0;
+        let buttonClicks = 0;
+
+        function update(id, n) {
+            document.getElementById(id).textContent = n;
+        }
+
+        window.onclick = function(e) {
+            windowClicks += 1;
+            update('window-clicks', windowClicks);
+            console.log('window-click', e.target);
+        }
+
+        document.onclick = function(e) {
+            documentClicks += 1;
+            update('document-clicks', documentClicks);
+            console.log('document-clicks', e.target);
+            e.stopPropagation();
+        }
+
+        document.body.onclick = function(e) {
+            bodyClicks += 1;
+            update('body-clicks', bodyClicks);
+            console.log('body-clicks', e.target);
+        }
+
+        document.getElementById('a').onclick = function(e) {
+            divClicks += 1;
+            update('div-clicks', divClicks);
+            console.log('div-clicks', e.target);
+        }
+
+        document.getElementById('b').onclick = function(e) {
+            buttonClicks += 1;
+            update('button-clicks', buttonClicks);
+            console.log('button-clicks', e.target);
+        }
+
+        document.querySelector('a').onclick = function(e) {
+            e.preventDefault();
+        }
+
+        window.onresize = function() {
+            console.log('resize');
+        }
+
+        window.addEventListener('beforeunload', function(event) {
+                event.preventDefault();
+
+                // // For maximal cross-browser compatibility:
+                event.returnValue = "Are you sure you want to leave?";
+                return false;
+        });
+
+        window.onscroll = function(scrollEvent) {
+            const percent = (window.innerHeight + window.scrollY) / document.body.scrollHeight * 100;
+            document.getElementById('reading-progress').style.width = percent + 'vw';
+        }
+
+    </script>
+</body>
+</html>

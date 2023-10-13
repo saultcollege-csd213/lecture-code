@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+    </style>
+</head>
+<body>
+    
+    <form method="post">
+        <label>First name:
+            <input type="text" name="fname">
+        </label><br>
+        <label for="lname">Last name:</label>
+        <input type="text" name="lname" id="lname"><br>
+
+        <label>Things you like</label>
+        <label for="candy">Candy:</label>
+        <input type="checkbox" name="like" id="candy" value="candy"><br>
+        <label for="games">Games:</label>
+        <input type="checkbox" name="like" id="games" value="games"><br>
+        <label for="friends">Friends:</label>
+        <input type="checkbox" name="like" id="friends" value="friends"><br>
+        <label for="dirt">Dirt:</label>
+        <input type="checkbox" name="like" id="dirt" value="dirt"><br>
+
+        <label>Favourite direction:</label><br>
+        <label for="north">North</label>
+        <input type="radio" name="direction" id="north" value="north"><br>
+        <label for="south">South</label>
+        <input type="radio" name="direction" id="south" value="south"><br>
+        <label for="east">East</label>
+        <input type="radio" name="direction" id="east" value="east"><br>
+        <label for="west">West</label>
+        <input type="radio" name="direction" id="west" value="west"><br>
+
+
+        <label>Password
+            <input type="password" name="password">
+        </label>
+
+        <textarea name="message" id="message" cols="30" rows="10">kasdasdfkjasdfkm</textarea>
+
+        <select name="options">
+            <option value="1">1000</option>
+            <option value="2">2000</option>
+            <option value="3" selected>3000</option>
+            <option value="4">4000</option>
+            <option value="5">5000</option>
+            <option value="6" disabled>6000</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script type="module">
+
+        document.forms[0].elements.lname.onfocus = () => console.log("lname focused");
+        document.forms[0].elements.lname.onblur = () => console.log("lname blurred");
+
+        function numbersOnly(str) {
+            return str.replace(/[^0-9]/g, '');
+        }
+
+
+        document.forms[0].elements.fname.onchange = event => console.log("Change from fname: " + event.target.value);
+        document.forms[0].elements.fname.oninput = event => {
+            console.log("Input from fname: " + event.target.value);
+            event.target.value = numbersOnly(event.target.value);
+        } 
+    </script>
+</body>
+</html>

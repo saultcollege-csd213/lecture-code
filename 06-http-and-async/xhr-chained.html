@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="container"></div>
+    
+    <script>
+        "use strict";
+
+        // Example of chaining XHR requests in sequence
+
+        const request1 = new XMLHttpRequest();
+        request1.open('GET', '/resource1');
+        request1.send();
+
+        const request2 = new XMLHttpRequest();
+        request2.open('POST', '/resource2');
+        request2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        // Can't send until we get response from request1!
+
+        const request3 = new XMLHttpRequest();
+        request3.open('POST', '/resource2');
+        request3.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        // Can't send until we get response from request2!
+
+        request1.onreadystatechange = function() {
+            if ( request1.readyState === 4 && request1.status === 200 ) {
+                    // do stuff with request1.responseText to obtain data, then...
+                    request2.send(data);
+            } else {
+                //  There was a problem.  Need to deal with it gracefully...
+            }
+        };
+
+        request2.onreadystatechange = function() {
+            if ( request2.readyState === 4 && request2.status === 200 ) {
+                    // do stuff with request2.responseText to obtain data, then...
+                    request3.send(data);
+            } else {
+                //  There was a problem.  Need to deal with it gracefully...
+            }
+        };
+
+        request3.onreadystatechange = function() {
+            if ( request3.readyState === 4 && request3.status === 200 ) {
+                    // Finally, do stuff with request3.responseText...
+            } else {
+                //  There was a problem.  Need to deal with it gracefully...
+            }
+        };
+
+
+    </script>
+</body>
+</html>

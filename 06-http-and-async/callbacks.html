@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+
+        function thing1(callback) { 
+            setTimeout(function() {
+                callback(1);
+            }, 1000);            
+        }
+        function thing2(callback) {
+            setTimeout(function() {
+                callback(2);
+            }, 1000);      
+        }
+        function thing3(callback) { 
+            setTimeout(function() {
+                callback(3);
+            }, 3000);      
+        }
+        function thing4(callback) { 
+            setTimeout(function() {
+                callback(4) 
+            }, 1000);      
+        }
+
+        /**
+         * Do the things using callbacks
+         */
+        function doTheThings() {
+            thing1(function(v1) {
+                console.log(v1);
+                thing2(function(v2) {
+                    console.log(v2);
+                    thing3(function(v3) { 
+                        console.log(v3);
+                        thing4(function(v4) {
+                            console.log(v4);
+                        });
+                    })
+                })
+            })
+        }
+
+        //doTheThings();
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+GET http://www.saultcollege.ca
+
+###
+
+POST http://www.saultcollege.ca
+
+###
+
+DELETE http://www.google.ca/users/1

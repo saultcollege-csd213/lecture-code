@@ -14,7 +14,7 @@
             return new Promise((resolve, reject) => {
                 setTimeout(function() { 
                     resolve(1);
-                }, 1000);
+                }, 1500);
             });
         }
 
@@ -39,20 +39,23 @@
             return new Promise((resolve) => {
                 setTimeout(function() { 
                     resolve(4);
-                }, 1000);
+                }, 2000);
             });
         }
 
-        function doTheThingsAllAtOnce() {
+        function doTheThingsAsynchronously() {
             thing1().then((val) => console.log(val));
+            
             thing2().then((val) => console.log(val));
+            
             thing3().then((val) => console.log(val));
+            
             thing4().then((val) => console.log(val));
         }
 
         // NOTE: The returns are important!  You can't just call the functions without returning the value (the Promise)
         // Try removing the return statements to see what happens
-        function doTheThings() {
+        function doTheThingsSynchronously() {
             thing1()
             .then(function(v) { 
                 console.log(v);
@@ -60,6 +63,7 @@
             })
             .then(function(v) { 
                 console.log(v);
+                throw Error("Something went wrong");
                 return thing3(); 
             })
             .then(function(v) { 
@@ -77,7 +81,6 @@
             })
         }
 
-        doTheThings();
 
     </script>
 </body>

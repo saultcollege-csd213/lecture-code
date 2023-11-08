@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="freezy">Freeze</button>
+    <button id="btn">Click me</button>
+
+    <script>
+        const btn = document.getElementById('btn');
+        const freezy = document.getElementById('freezy');
+
+        function f() {
+            console.log("Hi from f");
+        }
+        freezy.addEventListener('click', function() {
+           for ( let i = 0; i < 100000000; i++) {
+               console.log(i);
+           }
+        });
+        btn.addEventListener('click', function() {
+            console.log("Hi from button");
+        });
+        setTimeout(function() {
+            console.log("Hi from timeout")
+        }, 1000);
+        window.onbeforeunload = function() {
+            console.log("Hi from unload");
+        };
+    </script>
+</body>
+</html>

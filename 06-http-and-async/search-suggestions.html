@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Suggestions</title>
+</head>
+<body>
+    <input type="search" id="search">
+    <ul id="suggestions"></ul>
+
+    <script>
+        const search = document.getElementById('search');
+        const suggestions = document.getElementById('suggestions');
+
+        // Allows us to cancel fetch requests
+        let aborter = new AbortController();  
+
+        search.addEventListener('input', e => {
+
+            const query = e.target.value;
+
+            // Cancel the previous fetch request
+            aborter.abort();
+
+            // Create a new AbortController
+            aborter = new AbortController();
+
+            // Fetch the suggestions
+            fetch(`http://localhost:9999/suggest-animals?q=${encodeURIComponent(query)}`, 
+                { signal: aborter.signal } // Associate the AbortController with this fetch request
+            )
+                .then(response => response.json())
+                .then(data => {
+                    suggestions.innerHTML = '';
+
+                    data.suggestions.forEach(suggestion => {
+                        const li = document.createElement('li');
+                        li.innerText = suggestion;
+                        suggestions.appendChild(li);
+                    });
+                })
+                .catch(err => {
+                    if (err.name === 'AbortError') {
+                        console.log('Fetch aborted for query ' + query);
+                    } else {
+                        console.log(err);
+                    }
+                });
+
+        });
+    </script>
+</body>
+</html>

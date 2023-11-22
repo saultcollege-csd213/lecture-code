@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Get the query string from the current URL
+        const queryString1 = window.location.search;
+        const queryString2 = "product_code=123&name=abc&price=1000&sizes=small&sizes=medium&sizes=large";
+        // Create a new URLSearchParams object from a query string
+        const params = new URLSearchParams(queryString2);
+        console.log(params.has("product_code"));    // true
+        console.log(params.get("product_code"));    // "123"
+        console.log(params.getAll("sizes"));        // ["small", "medium", "large"]
+        console.log(params.get("does_not_exist"));  // null
+        console.log(params.append("sizes", "xlarge"));
+        console.log(params.toString());        
+        // "product_code=123&name=abc&price=1000&sizes=small&sizes=medium&sizes=large&sizes=xlarge"
+    </script>
+</body>
+</html>

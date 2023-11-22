@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<button id="notify">Notify</button>
+<script>
+    const notify = document.getElementById('notify');
+    notify.addEventListener('click', () => {
+        // Check for browser support
+        if ( ! "Notification" in window ) { return; }
+
+        if ( Notification.permission === 'granted' ) {
+            new Notification('Hello World!');
+        } else {
+            Notification.requestPermission().then( permission => {
+                if ( permission === 'granted' ) {
+                    new Notification('Hello World!');
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

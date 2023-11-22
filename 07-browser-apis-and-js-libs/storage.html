@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p><label>Key: <input type="text" id="name" placeholder="enter a storage key"></label></p>
+    <p><label>Value: <input type="text" id="val" placeholder="enter a value"></label></p>
+    <p>
+        <label><input type="radio" name="storageType" id="local" value="local" checked> Local Storage</label>
+        <label><input type="radio" name="storageType" id="session" value="session"> Session Storage</label>
+    </p>
+    <p>
+        <button id="add">Add</button>
+        <button id="remove">Remove</button>
+    </p>
+    
+    
+    <script>
+        const add = document.getElementById('add');
+        add.addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const val = document.getElementById('val').value;
+
+            if ( document.getElementById('local').checked ) {
+                localStorage.setItem(name, val);
+            } else {
+                sessionStorage.setItem(name, val);
+            }
+        });
+    </script>
+</body>
+</html>

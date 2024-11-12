@@ -27,7 +27,7 @@
             aborter = new AbortController();
 
             // Fetch the suggestions
-            fetch(`http://localhost:9999/suggest-animals?q=${encodeURIComponent(query)}`, 
+            fetch(`http://localhost:9991/suggest-animals?q=${encodeURIComponent(query)}`, 
                 { signal: aborter.signal } // Associate the AbortController with this fetch request
             )
                 .then(response => response.json())

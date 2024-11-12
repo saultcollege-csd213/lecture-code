@@ -35,14 +35,14 @@ let i = 1;
 const addButton = document.getElementById('add');
 addButton.addEventListener('click', () => {
     const newButton = document.createElement('button');
-    newButton.textContent = "Print " + i;
-    // newButton.addEventListener('click', () => console.log("i: " + i));
+    newButton.textContent = "Say " + i;
+    //newButton.addEventListener('click', () => console.log("i: " + i));
     // To fix the problem, we need to create a local variable inside the
     // function that is a copy of the value of i when the function is created.
     // This is called "capturing" the value of i.
     const j = i;
     newButton.addEventListener('click', () => console.log("j: " + j));
-    document.body.appendChild(newButton);
+    document.getElementById("container").appendChild(newButton);
     i += 1;
 });
 
@@ -50,8 +50,8 @@ addButton.addEventListener('click', () => {
 // let i = 0;
 // while ( i < 5 ) {
 //     // 'i' can be used inside the function because of closure
-//     const n = i;
-//     button.addEventListener('click', () => console.log(i));
+//     let n = i;
+//     button.addEventListener('click', () => console.log(n, i));
 //     i += 1;
 // }
 // BUT clicking the button prints '5' to the console 5 times!

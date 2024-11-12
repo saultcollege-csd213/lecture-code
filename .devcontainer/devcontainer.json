@@ -1,0 +1,23 @@
+{
+    "name": "CSD213 Lecture Code",
+    "runArgs": ["--name", "csd213-lecture-code" ],
+    "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node",
+    "postStartCommand": "git config --global --add safe.directory /workspaces/lecture-code",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vsliveshare.vsliveshare",
+                "yzhang.markdown-all-in-one",
+                "esbenp.prettier-vscode",
+                "ms-vscode-remote.vscode-remote-extensionpack",
+                "github.copilot",
+                "github.copilot-chat"
+                
+            ]
+        }
+    },
+    "features": {
+        "ghcr.io/warrenbuckley/codespace-features/sqlite:1": {}
+    }
+
+}

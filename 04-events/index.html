@@ -5,12 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script defer type="module" src="common-mistakes.js"></script>
+    <script type="module" defer>
+        // document.getElementById("inline").addEventListener('click', function() {
+        //     console.log("Hello, inline!");
+        // })
+        // document.getElementById("inline").addEventListener('click', function() {
+        //     console.log("Hello, 2!");
+        // })
+
+        // document.addEventListener('click', function() {
+        //     console.log("The document was clicked!");
+        // })
+
+        function debounce(func, wait) {
+            let timerId;
+            return function() {
+                clearTimeout(timerId);
+                timerId = setTimeout(func, wait);
+            }
+        }
+
+        document.addEventListener('keydown', debounce(function() {
+                console.log("The document was clicked!");
+            }, 1000));
+    </script>
 </head>
 <body>
 
+    <div id="container"></div>
+
+    <button id="inline" disabled>Click me!</button>
     <button id="button">Click me!</button>
     <button id="add">+</button>
 
     <button id="remove">Remove the event</button>
+
+
+
+    
 </body>
 </html>

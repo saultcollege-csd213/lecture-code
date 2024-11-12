@@ -2,8 +2,13 @@ GET http://www.saultcollege.ca
 
 ###
 
-POST http://www.saultcollege.ca
+POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDgH5SQL7cHqsCytw1T5HqGCpb8p1k471A
+Content-Type: application/json
 
-###
-
-DELETE http://www.google.ca/users/1
+{
+    "contents": [{
+        "parts": [{
+            "text": "In one sentence describe the JavaScript Fetch API"
+        }]
+    }]
+}

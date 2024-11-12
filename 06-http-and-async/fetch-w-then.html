@@ -9,21 +9,35 @@
 <body>
 
     <div id="container"></div>
+
+    <button id="get-html">Get HTML</button>
+    <button id="get-json">Get JSON</button>
     
-    <script>
-        "use strict";
+    <script type="module">
 
-        fetch('http://localhost:9999/somehtml')
-            .then(response => {
-                if ( ! response.ok ) {
-                    throw new Error("Network response was not ok");
-                }
+        document.getElementById('get-html').addEventListener('click', getHTML);
+        document.getElementById('get-json').addEventListener('click', getJSON);
 
-                return response.text();
-            })
-            .then(handleHTML)
-            .catch(err => console.log(err));
+        function safeFetch(url, handler) {
+            fetch(url)
+                .then(response => {
+                    if ( ! response.ok ) {
+                        throw new Error("Network response was not ok");
+                    }
 
+                    return response.text();
+                })
+                .then(handler)
+                .catch(err => console.log(err));
+        }
+
+        function getHTML() {
+            safeFetch('http://localhost:9991/somehtml', handleHTML);
+        }
+
+        function getJSON() {
+            safeFetch('http://localhost:9991/somejson', handleJSON);
+        }
 
         function handleHTML(html) {
             document.getElementById('container').innerHTML = html;

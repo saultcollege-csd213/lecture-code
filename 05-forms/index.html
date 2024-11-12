@@ -82,6 +82,10 @@
             return str.replace(/[^0-9]/g, '');
         }
 
+        function lettersOnly(str) {
+            return str.replace(/[^a-zA-Z]/g, '');
+        }
+
 
         document.forms[0].elements.fname.onchange = event => console.log("Change from fname: " + event.target.value);
         document.forms[0].elements.fname.oninput = event => {
@@ -93,6 +97,10 @@
             } else {
                 event.target.setCustomValidity("Only numbers allowed");
             }
+        } 
+
+        document.getElementById("lname").oninput = event => {
+            event.target.value = lettersOnly(event.target.value);
         } 
 
         let fileSelector = document.querySelector("[name='file']");
@@ -125,6 +133,18 @@
                 // (Using the DOM API)
                 e.preventDefault();
             }
+        }
+    </script>
+
+    <script>
+        
+        function replaceSelectionWith(formControl, text) {
+            let start = formControl.selectionStart;
+            let end = formControl.selectionEnd;
+            formControl.value = formControl.value.slice(0, start) + text + formControl.value.slice(end);
+            formControl.selectionStart = start + text.length;
+            formControl.selectionEnd = start + text.length;
+            formControl.focus();
         }
     </script>
 </body>

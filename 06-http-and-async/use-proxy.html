@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Proxy</title>
+</head>
+<body>
+
+    <label>Style</label><br>
+    <select id="style">
+        <option value="adventurer">Adventurer</option>
+        <option value="adventurer-neutral">Adventurer Neutral</option>
+        <option value="avataaars">Avataaars</option>
+        <option value="avataaars-neutral">Avataaars Neutral</option>
+        <option value="big-ears">Big Ears</option>
+        <option value="big-ears-neutral">Big Ears Neutral</option>
+        <option value="big-smile">Big Smile</option>
+        <option value="bottts">Bottts</option>
+        <option value="bottts-neutral">Bottts Neutral</option>
+        <option value="croodles">Croodles</option>
+        <option value="croodles-neutral">Croodles Neutral</option>
+        <option value="dylan">Dylan</option>
+        <option value="fun-emoji">Fun Emoji</option>
+        <option value="glass">Glass</option>
+        <option value="icons">Icons</option>
+        <option value="identicon">Identicon</option>
+        <option value="initials">Initials</option>
+        <option value="lorelei">Lorelei</option>
+        <option value="lorelei-neutral">Lorelei Neutral</option>
+        <option value="micah">Micah</option>
+        <option value="miniavs">Miniavs</option>
+        <option value="notionists">Notionists</option>
+        <option value="notionists-neutral">Notionists Neutral</option>
+        <option value="open-peeps">Open Peeps</option>
+        <option value="personas">Personas</option>
+        <option value="pixel-art">Pixel Art</option>
+        <option value="pixel-art-neutral">Pixel Art Neutral</option>
+        <option value="rings">Rings</option>
+        <option value="shapes">Shapes</option>
+        <option value="thumbs">Thumbs</option>
+    </select>
+
+    <p>
+        <input type="text" id="seed" placeholder="Name">
+        <button id="random-seed">Random</button>
+    </p>
+      
+    <p>
+        <button id="trycors">Try CORS</button>
+    </p>
+    <p>
+        <button id="tryproxy">Try Proxy</button>
+    </p>
+    <img alt="Avatar" src="" id="avatar" width="100px">
+
+    <script>
+        document.getElementById('random-seed').onclick = () => {
+            document.getElementById('seed').value = Math.random().toString(36).substring(7);
+        };
+
+        document.getElementById('trycors').onclick = async () => {
+            try {
+                // This fails if CORS is not enabled on the server-side.
+                // And since we have no control over the server-side here, we can't change that.
+                const style = document.getElementById('style').value;
+                const seed = document.getElementById('seed').value;
+                const response = await fetch(`https://api.dicebear.com/9.x/${style}/svg?seed=${seed}`);
+                const data = await response.text();
+                console.log(data);
+                document.getElementById('avatar').src = `data:image/svg+xml,${encodeURIComponent(data)}`;
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        document.getElementById('tryproxy').onclick = async () => {
+            try {
+                // This will always work because we are using a proxy server (which we have control over) to make the request for us.
+                // CORS is a browser security feature, so if we make the request from the server-side, even if the API is not CORS-enabled that's ok.
+                // The proxy server will make the request to the API on the client's behalf, and then send the response back to the client.
+                // This is a common solution to the CORS problem when you don't have control over the server-side.
+                const style = document.getElementById('style').value;
+                const seed = document.getElementById('seed').value;
+                const response = await fetch(`http://localhost:9991/avatarproxy/${style}/svg?seed=${seed}`);
+                const data = await response.text();
+                console.log(data);
+                document.getElementById('avatar').src = `data:image/svg+xml,${encodeURIComponent(data)}`;
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+    </script>
+
+</body>
+</html>

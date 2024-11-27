@@ -108,6 +108,7 @@
             buttonClicks += 1;
             update('button-clicks', buttonClicks);
             console.log('button-clicks', e.target);
+            e.stopPropagation();
         }
 
         document.querySelector('a').onclick = function(e) {

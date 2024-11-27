@@ -1,0 +1,5 @@
+This project is the same as the 'plain-js' one, but uses the Vite bunlder and NPM as a package manager.  See the README.md in the `plain-js` folder for an explanation of why you might want to take this approach instead of using plain JS.
+
+The project was initialized using the `npm create vite@latest` which uses Vite to initialize an NPM project.  Now that the project has been initialized (and hence has a package.json file that specifies its dependencies) all that is required to get the dependencies on your machine is an `npm install`.
+
+To run the development server, run `npm run dev` which runs the `dev` script in the `package.json` file.  To build the app for deployment, you would urn `npm run build` and upload the contents of the reultant `dist` folder to your server.  Note the contents of the dist folder: all JS has been compiled into one long JS file, and that file is automatically referenced in the `index.html` file instead of the original code.  You can use Vite's "Preview" server to preview howt he built files will look from a normal (as opposed to a development) web server: `npm run preview`

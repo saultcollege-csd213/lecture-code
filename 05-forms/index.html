@@ -13,13 +13,13 @@
 </head>
 <body>
     
-    <form method="get">
+    <form method="post" action="http://localhost:9991/">
         <label>First name:
             <input type="text" name="fname" placeholder="Enter your first name" value="abc" >
         </label><br>
 
         <label for="lnamesame">
-            <input type="checkbox" name="lnamesame" id="lnamesame">
+            <input type="checkbox" name="lnamesame" id="lnamesame" checked>
             My last name is the same as my first name
         </label>
 
@@ -101,7 +101,7 @@
 
         document.getElementById("lname").oninput = event => {
             event.target.value = lettersOnly(event.target.value);
-        } 
+        }
 
         let fileSelector = document.querySelector("[name='file']");
         fileSelector.addEventListener("change", () => { 

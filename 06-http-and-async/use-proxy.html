@@ -82,7 +82,7 @@
                 // This is a common solution to the CORS problem when you don't have control over the server-side.
                 const style = document.getElementById('style').value;
                 const seed = document.getElementById('seed').value;
-                const response = await fetch(`http://localhost:9991/avatarproxy/${style}/svg?seed=${seed}`);
+                const response = await fetch(`http://127.0.0.1:9991/avatarproxy/${style}/svg?seed=${seed}`);
                 const data = await response.text();
                 console.log(data);
                 document.getElementById('avatar').src = `data:image/svg+xml,${encodeURIComponent(data)}`;

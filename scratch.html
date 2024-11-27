@@ -7,6 +7,34 @@
 </head>
 <body>
 
+<script>
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "contents": [{
+                "parts": [{
+                    "text": "In one sentence, describe the JavaScript Fetch API"
+                }]
+            }]
+        })
+    }
+
+    fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDgH5SQL7cHqsCytw1T5HqGCpb8p1k471A")
+    .then(response => {
+        if ( ! response.ok ) {
+            throw new Error("Network response was not ok");
+        }
+        return response.json()
+    })
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+
+</script>
+
     
 </body>
 </html>

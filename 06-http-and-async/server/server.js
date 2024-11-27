@@ -11,7 +11,7 @@ function handleRequest(req, res) {
 
     // const origin = req.Origin;
     // if origin is in the list of allowed origins
-    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+    // res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
 
 
     if ( req.url.startsWith('/avatarproxy/') ) {
@@ -19,10 +19,16 @@ function handleRequest(req, res) {
         // This may be necessary if, for example, the server has not enabled CORS for your client's origin
 
         // Get everything after the /avatarproxy/ part of the URL
-        const path = req.url.substring('/avatarproxy/'.length);  
+        const path = req.url.substring('/avatarproxy/'.length);
+        
+        // Copy the client request method and headers for use in the proxy request
+        const options = { method: req.method, headers: req.headers }
 
-        const proxyReq = https.request(`https://api.dicebear.com/9.x/${path}`, (proxyRes) => {
-            // Once the actual server has responded, forward (pipe) the response back to the client
+        const proxyReq = https.request(`https://api.dicebear.com/9.x/${path}`, options, (proxyRes) => {
+            // Once the actual server has responded...
+            // Copy the status and headers into the response we're sending back to the client
+            res.writeHead(proxyRes.statusCode, proxyRes.headers);
+            // And forward (pipe) the response body back to the client's response body
             proxyRes.pipe(res, { end: true });
         })
         // Forward (pipe) the client's request to the actual server
